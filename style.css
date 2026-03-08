@@ -1,79 +1,208 @@
 @charset "utf-8";
-/* CSS Document */
+
+/* Reset and base styles */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
 body {
-	background-color: #313145;
+	background-color: #222;
+	font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	color: white;
 }
 
-#flat {
-	margin: 50px auto;
-	width: 960px;
-}
-
-nav ul {
-	list-style: none;
-	overflow: hidden;
+/* Phone frame container */
+#phone-screen {
+	width: 360px;
+	height: 640px;
+	/* 16:9 aspect ratio */
+	background-color: black;
+	border: 15px solid #111;
+	border-radius: 30px;
 	position: relative;
+	overflow-y: auto;
+	overflow-x: hidden;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-nav ul li {
-	float: left;
-	margin: 0 20px 0 0;
+/* Custom scrollbar to mock phone */
+#phone-screen::-webkit-scrollbar {
+	width: 4px;
 }
 
-nav ul li a {
+#phone-screen::-webkit-scrollbar-thumb {
+	background: #555;
+	border-radius: 2px;
+}
+
+/* Status bar */
+.status-bar {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px 20px 5px 20px;
+	font-size: 12px;
+	color: #ccc;
+	position: sticky;
+	top: 0;
+	background: black;
+	z-index: 10;
+}
+
+/* Start Screen */
+.start-screen {
+	padding: 10px 15px 30px 20px;
+}
+
+.page-title {
+	font-weight: 300;
+	font-size: 42px;
+	margin-bottom: 25px;
+	letter-spacing: -1px;
+	text-transform: lowercase;
+}
+
+/* Tile Grid System */
+.tile-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 8px;
+	grid-auto-flow: dense;
+}
+
+/* Base Tile Styles */
+.tile {
 	display: block;
-	width: 120px;
-	height: 120px;
-	background-image: url('icons.png');
-	background-repeat: no-repeat;
+	color: white;
+	text-decoration: none;
+	position: relative;
+	overflow: hidden;
+	transition: transform 0.1s ease;
 }
 
-nav ul li:nth-child(1) a {
-	background-color: #5bb2fc;
-	background-position: 28px 28px;
+.tile:active {
+	transform: scale(0.95);
+	opacity: 0.8;
 }
 
-nav ul li:nth-child(2) a {
-	background-color: #58ebd3;
-	background-position: 28px -96px;
+/* Tile Sizes */
+.tile.small {
+	grid-column: span 1;
+	aspect-ratio: 1 / 1;
 }
 
-nav ul li:nth-child(3) a {
-	background-color: #ffa659;
-	background-position: 28px -222px;
+.tile.medium {
+	grid-column: span 2;
+	aspect-ratio: 1 / 1;
 }
 
-nav ul li:nth-child(4) a {
-	background-color: #ff7a85;
-	background-position: 28px -342px;
+.tile.wide {
+	grid-column: span 4;
+	aspect-ratio: 2 / 1;
 }
 
-nav ul li a span {
-	font-family: 'Open Sans', sans-serif;
-	font-size: 50px;
-	text-transform: uppercase;
+/* Colors from WP8 */
+.bg-blue {
+	background-color: #1ba1e2;
+}
+
+.bg-green {
+	background-color: #a4c400;
+}
+
+.bg-red {
+	background-color: #e51400;
+}
+
+.bg-purple {
+	background-color: #8c0095;
+}
+
+.bg-orange {
+	background-color: #fa6800;
+}
+
+.bg-teal {
+	background-color: #00aba9;
+}
+
+.bg-cyan {
+	background-color: #1ba1e2;
+}
+
+.bg-pink {
+	background-color: #f472d0;
+}
+
+.bg-yellow {
+	background-color: #e3a21a;
+}
+
+.bg-darkblue {
+	background-color: #0050ef;
+}
+
+.bg-magenta {
+	background-color: #d80073;
+}
+
+/* Tile Inner Contents */
+.tile-icon {
 	position: absolute;
-	left: 600px;
-	top: 29px;
-	display: none;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 32px;
 }
 
-nav ul li a:hover span {
-	display: block;
+.tile.small .tile-icon {
+	font-size: 18px;
 }
 
-nav ul li:nth-child(1) a span {
-	color: #5bb2fc;
+.tile-label {
+	position: absolute;
+	bottom: 8px;
+	left: 10px;
+	font-size: 13px;
+	font-weight: 600;
 }
 
-nav ul li:nth-child(2) a span {
-	color: #58ebd3;
+.tile-content {
+	padding: 15px;
 }
 
-nav ul li:nth-child(3) a span {
-	color: #ffa659;
+.tile-content h2 {
+	font-weight: 400;
+	font-size: 20px;
+	margin-bottom: 5px;
 }
 
-nav ul li:nth-child(4) a span {
-	color: #ff7a85;
+.tile-content p {
+	font-size: 13px;
+	opacity: 0.9;
+	line-height: 1.4;
+}
+
+/* Specific live tile styles */
+.calendar-tile {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 100%;
+	padding-left: 10px;
+}
+
+.calendar-day {
+	font-size: 55px !important;
+	line-height: 1;
+	margin-bottom: 0 !important;
+}
+
+.calendar-date {
+	font-size: 16px !important;
 }
